@@ -6,19 +6,21 @@ const {
 
 const getStream = require("into-stream");
 const multer = require("multer");
+const dotenv = require("dotenv");
 const express = require("express");
 
 const router = express.Router();
+dotenv.config();
 
 const sharedKeyCredential = new StorageSharedKeyCredential(
-  "fxhackathon",
-  "31jhE/NqodYt7pTIsF7YKmkj5Wbsk+VAjIJI63WRR8c0ly6a/3o7s5EEpjV/YXZbeo9A2adR6l4nYvgYFppAYA=="
+  process.env.CLOUD_ACCOUNT_NAME,
+  process.env.CLOUD_ACCOUNT_KEY
 );
 
 const pipeline = newPipeline(sharedKeyCredential);
 
 const blobServiceClient = new BlobServiceClient(
-  `https://fxhackathon.blob.core.windows.net`,
+  `https://${process.env.CLOUD_ACCOUNT_NAME}.blob.core.windows.net`,
   pipeline
 );
 
