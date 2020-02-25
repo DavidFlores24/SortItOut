@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cloudUtils = require("./src/routes/api/cloudUtils");
 // connectDB();
+const recycleRequest = require("./src/routes/api/recycleRequest");
 app = express();
 app.use(
   bodyParser.urlencoded({
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 app.use("/services", cloudUtils);
 app.get("/", (req, res) => res.send("hello world"));
+app.use("/recycle-requests", recycleRequest);
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
