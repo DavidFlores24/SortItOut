@@ -1,11 +1,11 @@
 const getImageInfo = require("../APIs/azure/getImageInfo");
-const getPostcode = require("../APIs/geoLocation/getPostcode");
+const getCouncilData = require("../APIs/geoLocation/getCouncilData");
 
 const processRequest = async request => {
   try {
     const response = await Promise.all([
       getImageInfo(request.image_url),
-      getPostcode(request)
+      getCouncilData(request)
     ]);
     return response;
   } catch (err) {
