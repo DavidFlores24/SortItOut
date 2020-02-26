@@ -17,12 +17,12 @@ const RecycleRequestSchema = new mongoose.Schema({
     required: true
   },
 
-  easting: {
+  latitude: {
     type: String,
     required: true
   },
 
-  northing: {
+  longitude: {
     type: String,
     required: true
   }
