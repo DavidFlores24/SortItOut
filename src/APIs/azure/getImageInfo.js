@@ -1,33 +1,17 @@
-const {
-  PredictionAPIClient
-} = require("@azure/cognitiveservices-customvision-prediction");
+const getContainerType = require("./getContainerType");
+const getContainerMaterial = require("./getContainerMaterial");
+const mapMaterial = require("./materialMapper");
 
-const {
-  PREDICTION_ENDPOINT,
-  PREDICTION_KEY,
-  PREDICTION_PROJECT_ID
-} = process.env;
+const getImageInfo = async imageUrl => {
+  // const containerType = await getContainerType(imageUrl);
+  const containerMaterial = await getContainerMaterial(imageUrl, containerType);
 
-async function getImageInfo(imageUrl) {
-  const predictor = new PredictionAPIClient(
-    PREDICTION_KEY,
-    PREDICTION_ENDPOINT
-  );
+  const imageInfo = {
+    type: "box",
+    material: mapMaterial(containerMaterial.material)
+  };
 
-  const results = await predictor.classifyImageUrl(
-    PREDICTION_PROJECT_ID,
-    "Iteration1",
-    { url: imageUrl }
-  );
-
-  const { predictions } = results;
-
-  // sort results by probability
-  predictions.sort((a, b) => (a.probability < b.probability ? 1 : -1));
-
-  if (predictions[0].probability > 0.8) {
-    return { material: predictions[0].tagName };
-  }
-}
+  return imageInfo;
+};
 
 module.exports = getImageInfo;
