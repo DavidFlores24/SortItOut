@@ -11,14 +11,15 @@ const getCouncilData = async request => {
   });
 
   const result = findDataOnDataset(councilName);
-  return result;
+  return { data: result, council: councilName };
 };
 
 const findDataOnDataset = async councilName => {
   const file = path.join(__dirname, "..", "..", "dataset", "council-data.csv");
   const dataset = await neatCsv(fs.createReadStream(file));
 
-  return getData(councilName, dataset);
+  const councilData = getData(councilName, dataset);
+  return councilData;
 };
 
 const getData = (councilName, dataset) => {
