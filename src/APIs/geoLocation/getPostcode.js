@@ -11,7 +11,7 @@ const getPostcode = async ({ latitude, longitude }) => {
 
   const url = `${process.env.GOOGLE_MAPS_ENDPOINT}?${params}`;
 
-  fetch(url)
+  return fetch(url)
     .then(res => {
       if (res.status === 200) {
         return res.json();
