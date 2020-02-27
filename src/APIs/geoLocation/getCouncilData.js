@@ -10,6 +10,10 @@ const getCouncilData = async request => {
     return await findCouncil(postcode);
   });
 
+  if (!councilName) {
+    throw new Error("Council is outside of London.");
+  }
+
   const result = findDataOnDataset(councilName);
   return { data: result, council: councilName };
 };

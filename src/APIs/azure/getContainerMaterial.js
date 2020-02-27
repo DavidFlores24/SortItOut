@@ -28,6 +28,10 @@ const getContainerMaterial = async (imageUrl, containerType) => {
 
   if (predictions[0].probability > 0.8) {
     return { material: predictions[0].tagName };
+  } else {
+    throw new Error(
+      "Could not determine container material. Please take another picture"
+    );
   }
 };
 
