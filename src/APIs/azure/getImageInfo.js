@@ -3,11 +3,11 @@ const getContainerMaterial = require("./getContainerMaterial");
 const mapMaterial = require("./materialMapper");
 
 const getImageInfo = async imageUrl => {
-  // const containerType = await getContainerType(imageUrl);
+  const containerType = await getContainerType(imageUrl);
   const containerMaterial = await getContainerMaterial(imageUrl, containerType);
 
   const imageInfo = {
-    type: "box",
+    type: containerType.type,
     material: mapMaterial(containerMaterial.material)
   };
 
