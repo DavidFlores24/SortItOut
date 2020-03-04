@@ -14,7 +14,7 @@ const getCouncilData = async request => {
     throw new Error("Council is outside of London.");
   }
 
-  const result = findDataOnDataset(councilName);
+  const result = await findDataOnDataset(councilName);
   return { data: result, council: councilName };
 };
 
