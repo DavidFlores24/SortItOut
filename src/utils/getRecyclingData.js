@@ -1,4 +1,6 @@
-const getRecyclingData = ({ type, material }, councilData) => {
+const getRecyclingFacts = require("./getRecyclingFacts");
+
+const getRecyclingData = async ({ type, material }, councilData) => {
   let isRecyclable;
 
   if (type === "bottle" && material === "Mixed plastics") {
@@ -7,7 +9,9 @@ const getRecyclingData = ({ type, material }, councilData) => {
     isRecyclable = !!councilData.data[material];
   }
 
-  return { isRecyclable, type, material, council: councilData.council };
+  const fact = await getRecyclingFacts(material);
+
+  return { isRecyclable, type, material, council: councilData.council, fact };
 };
 
 module.exports = getRecyclingData;
