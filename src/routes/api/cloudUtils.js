@@ -4,13 +4,12 @@ const {
   newPipeline
 } = require("@azure/storage-blob");
 
-const getStream = require("into-stream");
-const multer = require("multer");
-const dotenv = require("dotenv");
 const express = require("express");
+const base64 = require("base64-img");
+
+const UrlRequest = require("../../models/UrlRequest");
 
 const router = express.Router();
-dotenv.config();
 
 const sharedKeyCredential = new StorageSharedKeyCredential(
   process.env.CLOUD_ACCOUNT_NAME,
@@ -33,25 +32,34 @@ const getBlobName = originalName => {
   return `${identifier}-${originalName}`;
 };
 
-const upload = multer({ storage: multer.memoryStorage() }).single("file");
+router.post("/create-image-url", (req, res) => {
+  UrlRequest.create(req.body)
+    .then(async req => {
+      const { file } = req;
 
-router.post("/create-image-url", upload, async (req, res) => {
-  const blobName = getBlobName(req.file.originalname);
-  const stream = getStream(req.file.buffer);
-  const containerClient = blobServiceClient.getContainerClient("images");
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+      try {
+        let image = "";
+        const blobName = getBlobName("test.jpg");
+        const containerClient = blobServiceClient.getContainerClient("images");
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-  try {
-    await blockBlobClient.uploadStream(stream);
-    const blob = {
-      name: blobName,
-      url: blockBlobClient.url
-    };
-
-    res.status(200).send(blob);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+        base64.img(file, __dirname, "file1", async (err, filePath) => {
+          image = filePath;
+          await blockBlobClient.uploadFile(image);
+          const blob = {
+            name: blobName,
+            url: blockBlobClient.url
+          };
+          res.status(200).send(blob);
+        });
+      } catch (err) {
+        throw new Error(err);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send(err.message);
+    });
 });
 
 module.exports = router;
