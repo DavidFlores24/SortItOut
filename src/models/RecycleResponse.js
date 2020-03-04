@@ -30,6 +30,11 @@ const RecycleResponseSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now()
+  },
+
+  fact: {
+    type: String,
+    required: true
   }
 });
 
