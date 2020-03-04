@@ -3,6 +3,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -20,7 +21,9 @@ app.use(
     extended: true
   })
 );
-app.use(bodyParser.json());
+
+app.use(cors());
+app.use(express.json());
 
 // define routes
 app.use("/services", cloudUtils);
