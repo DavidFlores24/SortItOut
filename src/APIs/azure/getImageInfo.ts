@@ -14,4 +14,4 @@ const getImageInfo = async imageUrl => {
   return imageInfo;
 };
 
-module.exports = getImageInfo;
+export default getImageInfo;

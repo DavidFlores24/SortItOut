@@ -38,4 +38,4 @@ const getRecyclingFacts = async material => {
   return "";
 };
 
-module.exports = getRecyclingFacts;
+export default getRecyclingFacts;

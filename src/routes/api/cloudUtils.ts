@@ -1,13 +1,13 @@
-const {
+import {
   BlobServiceClient,
   StorageSharedKeyCredential,
   newPipeline
-} = require("@azure/storage-blob");
+} from "@azure/storage-blob";
 
-const express = require("express");
-const base64 = require("base64-img");
+import express from "express";
+import base64 from "base64-img";
 
-const UrlRequest = require("../../models/UrlRequest");
+import UrlRequest from "../../models/UrlRequest";
 
 const router = express.Router();
 
@@ -62,4 +62,4 @@ router.post("/create-image-url", (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

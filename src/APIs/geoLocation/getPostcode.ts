@@ -1,3 +1,5 @@
+export {};
+
 const { stringify } = require("qs");
 
 const getPostcode = async ({ latitude, longitude }) => {

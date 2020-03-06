@@ -1,8 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
 
-const RecycleRequest = require("../../models/RecycleRequest");
-const processRequest = require("../../utils/processRequest");
+import RecycleRequest from "../../models/RecycleRequest";
+import processRequest from "../../utils/processRequest";
+
+const router = express.Router();
 
 router.post("/", (req, res) => {
   RecycleRequest.create(req.body)
@@ -16,4 +17,4 @@ router.post("/", (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

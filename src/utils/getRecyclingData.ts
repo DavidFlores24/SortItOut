@@ -1,4 +1,4 @@
-const getRecyclingFacts = require("./getRecyclingFacts");
+import getRecyclingFacts from "./getRecyclingFacts";
 
 const getRecyclingData = async ({ type, material }, councilData) => {
   let isRecyclable;
@@ -13,4 +13,4 @@ const getRecyclingData = async ({ type, material }, councilData) => {
   return { isRecyclable, type, material, council: councilData.council, fact };
 };
 
-module.exports = getRecyclingData;
+export default getRecyclingData;

@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+import { IRecycleRequest } from "./interfaces";
 
-const RecycleRequestSchema = new mongoose.Schema({
+import mongoose, { Schema } from "mongoose";
+
+const RecycleRequestSchema = new Schema({
   user_id: {
     type: String,
     required: true
@@ -28,7 +30,7 @@ const RecycleRequestSchema = new mongoose.Schema({
   }
 });
 
-module.exports = RecycleRequest = mongoose.model(
+export default mongoose.model<IRecycleRequest>(
   "RecycleRequest",
   RecycleRequestSchema
 );

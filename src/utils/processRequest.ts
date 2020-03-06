@@ -1,7 +1,7 @@
-const getImageInfo = require("../APIs/azure/getImageInfo");
-const getCouncilData = require("../APIs/geoLocation/getCouncilData");
-const getRecylingData = require("./getRecyclingData");
-const RecycleResponse = require("../models/RecycleResponse");
+import getImageInfo from "../APIs/azure/getImageInfo";
+import getCouncilData from "../APIs/geoLocation/getCouncilData";
+import getRecylingData from "./getRecyclingData";
+import RecycleResponse from "../models/RecycleResponse";
 
 const processRequest = async request => {
   console.log("processing request");
@@ -31,4 +31,4 @@ const processRequest = async request => {
   }
 };
 
-module.exports = processRequest;
+export default processRequest;

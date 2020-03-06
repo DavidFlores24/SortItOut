@@ -1,3 +1,5 @@
+export {};
+
 const neatCsv = require("neat-csv");
 const fs = require("fs");
 const path = require("path");
@@ -34,4 +36,4 @@ const getData = (councilName, dataset) => {
   }
 };
 
-module.exports = getCouncilData;
+export default getCouncilData;

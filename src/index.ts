@@ -1,6 +1,6 @@
 // dependencies
 const express = require("express");
-const connectDB = require("./config/db");
+const connectDB = require("../config/db");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -8,14 +8,14 @@ const cors = require("cors");
 dotenv.config();
 
 // routes
-const cloudUtils = require("./src/routes/api/cloudUtils");
-const recycleRequest = require("./src/routes/api/recycleRequest");
+const cloudUtils = require("./routes/api/cloudUtils");
+const recycleRequest = require("./routes/api/recycleRequest");
 
 // connect the DB
 connectDB();
 
 // configure server
-app = express();
+const app = express();
 app.use(
   bodyParser.urlencoded({
     extended: true

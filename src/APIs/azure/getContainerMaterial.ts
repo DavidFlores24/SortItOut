@@ -1,3 +1,5 @@
+export {};
+
 const {
   PredictionAPIClient
 } = require("@azure/cognitiveservices-customvision-prediction");
@@ -5,35 +7,34 @@ const {
 const {
   PREDICTION_ENDPOINT,
   PREDICTION_KEY,
-  PREDICTION_TYPE_ID,
-  PREDICTION_TYPE_MODEL
+  PREDICTION_MATERIAL_ID,
+  PREDICTION_MATERIAL_MODEL
 } = process.env;
 
-const getContainerType = async imageUrl => {
+const getContainerMaterial = async (imageUrl, containerType) => {
   const predictor = new PredictionAPIClient(
     PREDICTION_KEY,
     PREDICTION_ENDPOINT
   );
 
   const results = await predictor.classifyImageUrl(
-    PREDICTION_TYPE_ID,
-    PREDICTION_TYPE_MODEL,
-    {
-      url: imageUrl
-    }
+    PREDICTION_MATERIAL_ID,
+    PREDICTION_MATERIAL_MODEL,
+    { url: imageUrl }
   );
 
   const { predictions } = results;
 
+  // sort results by probability
   predictions.sort((a, b) => (a.probability < b.probability ? 1 : -1));
 
   if (predictions[0].probability > 0.8) {
-    return { type: predictions[0].tagName };
+    return { material: predictions[0].tagName };
   } else {
     throw new Error(
-      "Could not determine container type. Please upload a new picture"
+      "Could not determine container material. Please take another picture"
     );
   }
 };
 
-module.exports = getContainerType;
+module.exports = getContainerMaterial;

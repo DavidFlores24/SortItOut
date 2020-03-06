@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
+export {};
 
-const RecycleResponseSchema = new mongoose.Schema({
+import mongoose, { Schema } from "mongoose";
+import { IRecycleResponse } from "./interfaces";
+
+const RecycleResponseSchema = new Schema({
   request_id: {
     type: String,
     required: true
@@ -12,17 +15,20 @@ const RecycleResponseSchema = new mongoose.Schema({
   },
 
   container_material: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "container_material",
     required: true
   },
 
   container_type: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "container_type",
     required: true
   },
 
   council: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "council",
     required: true
   },
 
@@ -38,7 +44,7 @@ const RecycleResponseSchema = new mongoose.Schema({
   }
 });
 
-module.exports = RecycleResponse = mongoose.model(
+export default mongoose.model<IRecycleResponse>(
   "RecycleResponse",
   RecycleResponseSchema
 );

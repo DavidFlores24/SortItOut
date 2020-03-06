@@ -1,3 +1,5 @@
+export {};
+
 const mapMaterial = material => {
   switch (material) {
     case "black-plastic":

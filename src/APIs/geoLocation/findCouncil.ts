@@ -1,3 +1,5 @@
+export {};
+
 const mapCouncil = require("./councilMapper");
 
 const findCouncil = async postcode => {
